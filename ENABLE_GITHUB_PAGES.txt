@@ -1,0 +1,74 @@
+HOW TO ENABLE GITHUB PAGES - STEP BY STEP
+===========================================
+
+YOUR SITE: https://johnkibre.github.io
+
+PROBLEM: Site works on PC but not on phone
+REASON: GitHub Pages is not enabled yet
+SOLUTION: Follow these steps:
+
+STEP 1: Open this link on your PC
+----------------------------------------
+https://github.com/johnkibre/johnkibre.github.io/settings/pages
+
+(You may need to log in to GitHub first)
+
+
+STEP 2: Configure GitHub Pages
+----------------------------------------
+You will see a page titled "GitHub Pages"
+
+Look for "Build and deployment" section
+
+Under "Source":
+  - Click the dropdown
+  - Select: "Deploy from a branch"
+
+Under "Branch":
+  - First dropdown: Select "main"
+  - Second dropdown: Select "/ (root)"
+  - Click the green "Save" button
+
+
+STEP 3: Wait for Deployment
+----------------------------------------
+After clicking Save, you'll see:
+"GitHub Pages source saved"
+
+Wait 2-3 minutes for the site to build.
+
+Refresh the page and you'll see:
+✅ "Your site is live at https://johnkibre.github.io"
+
+
+STEP 4: Test on Your Phone
+----------------------------------------
+Open your phone browser and go to:
+https://johnkibre.github.io
+
+You should see your colorful 3D portfolio! 🎉
+
+
+TROUBLESHOOTING:
+================
+
+If you see 404 error:
+- Wait 5 more minutes
+- Make sure you selected "main" branch
+- Make sure you clicked "Save"
+
+If styles don't load:
+- Clear your phone browser cache
+- Try incognito/private mode
+
+If it still doesn't work:
+- Check: https://github.com/johnkibre/johnkibre.github.io/actions
+- Look for green checkmark (means deployment succeeded)
+
+
+SHARE YOUR LINK:
+================
+Once it works, share this link:
+https://johnkibre.github.io
+
+Anyone with this link can see your portfolio!
