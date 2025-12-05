@@ -694,13 +694,47 @@ footer .container {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .hero {
+        padding: 3rem 0;
+    }
+    
     .hero .container {
         flex-direction: column;
         text-align: center;
     }
     
+    .hero-content {
+        order: 2;
+    }
+    
+    .hero-image {
+        order: 1;
+        margin-bottom: 2rem;
+    }
+    
+    .image-placeholder {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+    }
+    
+    .image-placeholder::before {
+        width: 220px;
+        height: 220px;
+        top: -10px;
+        left: -10px;
+    }
+    
     .greeting {
-        font-size: 2.5rem;
+        font-size: 2rem;
+    }
+    
+    .title {
+        font-size: 1.3rem;
+    }
+    
+    .description {
+        font-size: 1rem;
     }
     
     .nav-links {
@@ -726,6 +760,22 @@ footer .container {
     .hero-buttons {
         justify-content: center;
         flex-wrap: wrap;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr;
     }
 }
 /* 
