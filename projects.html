@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Yohannes Kibrekidusan</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">YK</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="resume.html">Resume</a></li>
+                <li><a href="projects.html" class="active">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Projects Header -->
+    <section class="projects-header">
+        <div class="container">
+            <h1>My Projects</h1>
+            <p>A collection of my work showcasing full-stack development, AI solutions, and creative projects.</p>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="projects-details">
+        <div class="container">
+            <div class="project-detail" id="ethiopia-tourism">
+                <div class="project-info">
+                    <h2>Ethiopia Tourism Platform</h2>
+                    <div class="project-tags">
+                        <span>Full-Stack</span>
+                        <span>MERN</span>
+                        <span>Responsive</span>
+                        <span>MongoDB</span>
+                    </div>
+                    <p>A comprehensive tourism website showcasing Ethiopia's cultural heritage, destinations, and travel tips. Features an earthy, culturally inspired design with interactive elements.</p>
+                    <ul class="project-features">
+                        <li><i class="fas fa-check"></i> Full-stack MERN application</li>
+                        <li><i class="fas fa-check"></i> Responsive mobile-first design</li>
+                        <li><i class="fas fa-check"></i> Database integration with MongoDB</li>
+                        <li><i class="fas fa-check"></i> RESTful API implementation</li>
+                        <li><i class="fas fa-check"></i> Deployed on Vercel</li>
+                    </ul>
+                    <div class="project-links">
+                        <a href="https://github.com/johnkibre/ethiopia-tourism" target="_blank" class="btn primary">
+                            <i class="fab fa-github"></i> View Code
+                        </a>
+                        <a href="https://johnkibre.github.io/ethiopia-tourism" target="_blank" class="btn secondary">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+                <div class="project-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-globe-africa"></i>
+                        <p style="margin-top: 1rem; color: rgba(255,255,255,0.8);">Demo Video Coming Soon</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-detail" id="ocr-app">
+                <div class="project-info">
+                    <h2>OCR Accessibility Application</h2>
+                    <div class="project-tags">
+                        <span>AI/ML</span>
+                        <span>Python</span>
+                        <span>Flask</span>
+                        <span>Accessibility</span>
+                    </div>
+                    <p>An assistive technology solution designed to help blind and visually impaired individuals access printed text through real-time optical character recognition and audio feedback.</p>
+                    <ul class="project-features">
+                        <li><i class="fas fa-check"></i> Flask web application backend</li>
+                        <li><i class="fas fa-check"></i> Tesseract OCR integration</li>
+                        <li><i class="fas fa-check"></i> Google Translate API for multilingual support</li>
+                        <li><i class="fas fa-check"></i> Voice-guided user interface</li>
+                        <li><i class="fas fa-check"></i> Optimized for low-quality images</li>
+                    </ul>
+                    <div class="project-links">
+                        <a href="https://github.com/johnkibre/ocr" target="_blank" class="btn primary">
+                            <i class="fab fa-github"></i> View Code
+                        </a>
+                    </div>
+                </div>
+                <div class="project-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-detail" id="video-editing">
+                <div class="project-info">
+                    <h2>Video Editing Portfolio</h2>
+                    <div class="project-tags">
+                        <span>CapCut</span>
+                        <span>Multimedia</span>
+                        <span>Tutorials</span>
+                        <span>Content Creation</span>
+                    </div>
+                    <p>A collection of video editing projects showcasing technical tutorials, project demos, and creative content created using CapCut.</p>
+                    <ul class="project-features">
+                        <li><i class="fas fa-check"></i> Technical tutorial videos</li>
+                        <li><i class="fas fa-check"></i> Project demonstration videos</li>
+                        <li><i class="fas fa-check"></i> Motion graphics and animations</li>
+                        <li><i class="fas fa-check"></i> Sound design and editing</li>
+                        <li><i class="fas fa-check"></i> YouTube content creation</li>
+                    </ul>
+                    <div class="project-links">
+                        <a href="#video-gallery" class="btn secondary">
+                            <i class="fas fa-play-circle"></i> View More Videos
+                        </a>
+                    </div>
+
+                </div>
+                <div class="project-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-video"></i>
+                        <p style="margin-top: 1rem; color: rgba(255,255,255,0.8);">Video Samples Coming Soon</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- More Projects -->
+    <section class="more-projects">
+        <div class="container">
+            <h2>Other Projects</h2>
+            <div class="mini-projects">
+                <div class="mini-project">
+                    <h3>Driving Lesson Simulator</h3>
+                    <p>VR-based driving simulator developed in Unity with realistic physics.</p>
+                </div>
+                <div class="mini-project">
+                    <h3>Technical Blog</h3>
+                    <p>Blog covering web development, AI, and technology trends.</p>
+                </div>
+                <div class="mini-project">
+                    <h3>University Projects</h3>
+                    <p>Electrical engineering and computer science course projects.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (same as index.html) -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Yohannes Kibrekidusan</h3>
+                    <p>Building the future with code, AI, and creativity.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="resume.html">Resume</a>
+                    <a href="projects.html">Projects</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="footer-contact">
+                    <p><i class="fas fa-envelope"></i> jhonkibre0912@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> +251 923 803340</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 Yohannes Kibrekidusan. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

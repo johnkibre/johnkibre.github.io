@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume | Yohannes Kibrekidusan</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .resume-header {
+            background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .resume-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .resume-content {
+            padding: 4rem 0;
+            background: white;
+        }
+        
+        .resume-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+        
+        .resume-section {
+            margin-bottom: 3rem;
+        }
+        
+        .resume-section h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .experience-item, .education-item {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .experience-item:last-child, .education-item:last-child {
+            border-bottom: none;
+        }
+        
+        .job-title {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1.2rem;
+        }
+        
+        .company, .school {
+            color: #3498db;
+            margin: 0.3rem 0;
+        }
+        
+        .duration {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .certificate-list {
+            list-style: none;
+        }
+        
+        .certificate-list li {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .download-resume {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .resume-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">YK</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="resume.html" class="active">Resume</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Resume Header -->
+    <section class="resume-header">
+        <div class="container">
+            <h1>My Resume</h1>
+            <p>Full-Stack Developer | AI Engineer | Electrical Engineering Student</p>
+        </div>
+    </section>
+
+    <!-- Resume Content -->
+    <section class="resume-content">
+        <div class="container">
+            <div class="resume-grid">
+                <!-- Left Column -->
+                <div class="resume-left">
+                    <!-- Experience -->
+                    <div class="resume-section">
+                        <h2>Professional Experience</h2>
+                        
+                        <div class="experience-item">
+                            <div class="job-title">Software Tester & Quality Assurance</div>
+                            <div class="company">1xBet, Addis Ababa</div>
+                            <div class="duration">2023 – Present</div>
+                            <ul>
+                                <li>Execute comprehensive testing of web and mobile applications</li>
+                                <li>Document and prioritize software defects with 95% resolution rate</li>
+                                <li>Collaborate with development teams in Agile environment</li>
+                                <li>Develop automated test scenarios for regression testing</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="experience-item">
+                            <div class="job-title">IT Technical Specialist</div>
+                            <div class="company">Bet24 plc., Addis Ababa</div>
+                            <div class="duration">2020 – 2023</div>
+                            <ul>
+                                <li>Managed IT infrastructure for 200+ workstation environment</li>
+                                <li>Reduced support tickets by 40% through preventive maintenance</li>
+                                <li>Provided technical training to 50+ staff members</li>
+                                <li>Implemented security protocols and backup systems</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Projects -->
+                    <div class="resume-section">
+                        <h2>Key Projects</h2>
+                        
+                        <div class="experience-item">
+                            <div class="job-title">Ethiopia Tourism Platform</div>
+                            <div class="company">Full-Stack Development</div>
+                            <ul>
+                                <li>Developed responsive tourism website with MERN stack</li>
+                                <li>Implemented RESTful APIs and MongoDB integration</li>
+                                <li>Deployed on Vercel with 95+ Lighthouse performance score</li>
+                                <li>Features: Responsive design, interactive elements, SEO optimization</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="experience-item">
+                            <div class="job-title">OCR Accessibility Application</div>
+                            <div class="company">AI & Accessibility Project</div>
+                            <ul>
+                                <li>Built Flask app with Tesseract OCR for visually impaired users</li>
+                                <li>Integrated Google Translate API for multilingual support</li>
+                                <li>Created voice-guided UI with gesture controls</li>
+                                <li>Tested with target users for accessibility compliance</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column -->
+                <div class="resume-right">
+                    <!-- Skills -->
+                    <div class="resume-section">
+                        <h2>Technical Skills</h2>
+                        <div class="skill-tags">
+                            <span>HTML5/CSS3/JS</span>
+                            <span>MERN Stack</span>
+                            <span>Python</span>
+                            <span>MongoDB</span>
+                            <span>Git/GitHub</span>
+                            <span>REST APIs</span>
+                            <span>Responsive Design</span>
+                            <span>Video Editing</span>
+                            <span>Unity/VR</span>
+                            <span>AI/ML</span>
+                            <span>OCR Processing</span>
+                            <span>Software Testing</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Education -->
+                    <div class="resume-section">
+                        <h2>Education</h2>
+                        
+                        <div class="education-item">
+                            <div class="job-title">B.Sc. Electrical & Computer Engineering</div>
+                            <div class="school">Addis Ababa University</div>
+                            <div class="duration">Expected Graduation: 2025</div>
+                            <p>Relevant coursework: Digital Systems, Computer Architecture, Web Technologies, AI Fundamentals</p>
+                        </div>
+                        
+                        <div class="education-item">
+                            <div class="job-title">B.Sc. Information Systems</div>
+                            <div class="school">Hope University College</div>
+                            <div class="duration">Completed</div>
+                            <p>Thesis: "AI-Assisted Accessibility Tools for Visually Impaired Users"</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Certifications -->
+                    <div class="resume-section">
+                        <h2>Certifications</h2>
+                        <ul class="certificate-list">
+                            <li>
+                                <strong>CS50's Introduction to AI with Python</strong><br>
+                                Harvard University (2025)
+                                <img src="assets/images/CS50AI with python harvard universty.png" alt="CS50 AI Certificate" class="cert-image">
+                            </li>
+                            <li>
+                                <strong>AI and Career Empowerment</strong><br>
+                                University of Maryland (2025)
+                                <img src="assets/images/ai and empoerment universty of marylan.jpg" alt="AI Career Empowerment Certificate" class="cert-image">
+                            </li>
+                            <li>
+                                <strong>Google Cloud: Prompt Design in Vertex AI</strong><br>
+                                Google Cloud (2024)
+                                <img src="assets/images/google ai cloud.jpg" alt="Google Cloud AI Certificate" class="cert-image">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Download Section -->
+            <div class="download-resume">
+                <h3>Download Full Resume</h3>
+                <p>Get the complete PDF version of my resume with detailed information</p>
+                <a href="Yohannes_Kibrekidusan_CV.pdf" download class="btn primary" style="margin-top: 1rem;">
+                    <i class="fas fa-download"></i> Download PDF Resume
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Yohannes Kibrekidusan</h3>
+                    <p>Building the future with code, AI, and creativity.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="resume.html">Resume</a>
+                    <a href="projects.html">Projects</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="footer-contact">
+                    <p><i class="fas fa-envelope"></i> jhonkibre0912@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> +251 923 803340</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 Yohannes Kibrekidusan. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
