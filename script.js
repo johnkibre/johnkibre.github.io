@@ -179,24 +179,83 @@ document.querySelectorAll('.skill-tags span').forEach((tag, index) => {
     tag.style.animation = `float 3s ease-in-out ${index * 0.1}s infinite`;
 });
 
-// Add particle effect on mouse move
+// Advanced Cursor Glow Effect
+const cursorGlow = document.createElement('div');
+cursorGlow.className = 'cursor-glow';
+document.body.appendChild(cursorGlow);
+
+let mouseX = 0;
+let mouseY = 0;
+let glowX = 0;
+let glowY = 0;
+
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
+
+function animateGlow() {
+    glowX += (mouseX - glowX) * 0.1;
+    glowY += (mouseY - glowY) * 0.1;
+    
+    cursorGlow.style.left = glowX + 'px';
+    cursorGlow.style.top = glowY + 'px';
+    
+    requestAnimationFrame(animateGlow);
+}
+animateGlow();
+
+// Glow effect on hover for interactive elements
+const glowElements = document.querySelectorAll('.btn, .project-card, .skill-category, .nav-links a, .social-links a, .skill-tags span');
+
+glowElements.forEach(element => {
+    element.addEventListener('mouseenter', function() {
+        this.style.boxShadow = '0 0 30px rgba(139, 92, 246, 0.8), 0 0 60px rgba(99, 102, 241, 0.6)';
+        this.style.transform = 'translateY(-5px) scale(1.05)';
+    });
+    
+    element.addEventListener('mouseleave', function() {
+        this.style.boxShadow = '';
+        this.style.transform = '';
+    });
+});
+
+// Magnetic effect for buttons
+document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px) scale(1.05)`;
+    });
+    
+    btn.addEventListener('mouseleave', () => {
+        btn.style.transform = '';
+    });
+});
+
+// Enhanced particle effect on mouse move
 const createParticle = (x, y) => {
     const particle = document.createElement('div');
+    const colors = ['rgba(139, 92, 246, 0.8)', 'rgba(99, 102, 241, 0.8)', 'rgba(79, 172, 254, 0.8)', 'rgba(67, 233, 123, 0.8)'];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    
     particle.style.cssText = `
         position: fixed;
-        width: 5px;
-        height: 5px;
-        background: radial-gradient(circle, rgba(139, 92, 246, 0.8) 0%, transparent 70%);
+        width: 8px;
+        height: 8px;
+        background: radial-gradient(circle, ${randomColor} 0%, transparent 70%);
         border-radius: 50%;
         pointer-events: none;
         left: ${x}px;
         top: ${y}px;
         z-index: 9999;
-        animation: particleFade 1s ease-out forwards;
+        animation: particleFade 1.5s ease-out forwards;
     `;
     document.body.appendChild(particle);
     
-    setTimeout(() => particle.remove(), 1000);
+    setTimeout(() => particle.remove(), 1500);
 };
 
 // Add CSS animation for particles
@@ -212,6 +271,29 @@ style.textContent = `
             opacity: 0;
         }
     }
+    
+    .cursor-glow {
+        position: fixed;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition: opacity 0.3s;
+    }
+    
+    @keyframes ripple {
+        0% {
+            transform: scale(0.8);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(2);
+            opacity: 0;
+        }
+    }
 `;
 document.head.appendChild(style);
 
@@ -219,8 +301,30 @@ let particleTimer;
 document.addEventListener('mousemove', (e) => {
     clearTimeout(particleTimer);
     particleTimer = setTimeout(() => {
-        if (Math.random() > 0.9) {
+        if (Math.random() > 0.85) {
             createParticle(e.clientX, e.clientY);
         }
-    }, 50);
+    }, 30);
+});
+
+// Scroll reveal animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.project-card, .skill-category, .section-title').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(50px)';
+    el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    observer.observe(el);
 });

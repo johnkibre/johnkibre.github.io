@@ -15,13 +15,43 @@
     --light-color: #f0f9ff;
     --dark-color: #1e1b4b;
     --gray-color: #64748b;
+    /* Ethiopian-inspired gradients with green, yellow, red */
     --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
     --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
     --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    --gradient-ethiopia: linear-gradient(135deg, #10b981 0%, #fbbf24 50%, #ef4444 100%);
     --font-primary: 'Poppins', sans-serif;
     --font-secondary: 'Roboto', sans-serif;
+}
+
+/* Smooth cursor */
+* {
+    cursor: none;
+}
+
+a, button, .btn, .project-card, .skill-tags span {
+    cursor: none !important;
+}
+
+/* Custom cursor */
+body::after {
+    content: '';
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(139, 92, 246, 0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transition: transform 0.15s ease, border-color 0.3s;
+    animation: cursorPulse 2s infinite;
+}
+
+@keyframes cursorPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
 }
 
 body {
@@ -32,6 +62,12 @@ body {
     background-attachment: fixed;
     position: relative;
     overflow-x: hidden;
+    animation: bodyFadeIn 1s ease;
+}
+
+@keyframes bodyFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 body::before {
@@ -42,16 +78,23 @@ body::before {
     width: 100%;
     height: 100%;
     background: 
-        radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(252, 70, 107, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 40% 20%, rgba(99, 102, 241, 0.3) 0%, transparent 50%);
-    animation: gradientShift 15s ease infinite;
+        radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(251, 191, 36, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(239, 68, 68, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 60% 60%, rgba(99, 102, 241, 0.3) 0%, transparent 50%);
+    animation: gradientShift 20s ease infinite;
     z-index: -1;
 }
 
 @keyframes gradientShift {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.8; transform: scale(1.1); }
+    0%, 100% { 
+        opacity: 1; 
+        transform: scale(1) rotate(0deg); 
+    }
+    50% { 
+        opacity: 0.8; 
+        transform: scale(1.1) rotate(5deg); 
+    }
 }
 
 .container {
@@ -83,18 +126,35 @@ body::before {
 .logo {
     font-size: 1.8rem;
     font-weight: 700;
-    background: var(--gradient-3);
+    background: var(--gradient-ethiopia);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-decoration: none;
     font-family: var(--font-primary);
-    text-shadow: 0 0 30px rgba(79, 172, 254, 0.5);
+    filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.5));
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
+}
+
+.logo::after {
+    content: '🇪🇹';
+    position: absolute;
+    right: -30px;
+    top: -5px;
+    font-size: 1.2rem;
+    opacity: 0;
     transition: all 0.3s;
 }
 
 .logo:hover {
-    transform: scale(1.1) rotate(-5deg);
+    transform: scale(1.15) rotate(-5deg);
+    filter: drop-shadow(0 0 30px rgba(251, 191, 36, 0.8));
+}
+
+.logo:hover::after {
+    opacity: 1;
+    right: -35px;
 }
 
 .nav-links {
@@ -965,5 +1025,285 @@ Video and Certificate Styling */
     .project-detail:nth-child(even) .project-info,
     .project-detail:nth-child(even) .project-image {
         order: initial;
+    }
+}
+
+/* Advanced Glow and Animation Effects */
+
+/* Glowing text effect */
+.greeting, .section-title {
+    animation: textGlow 3s ease-in-out infinite;
+}
+
+@keyframes textGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.5));
+    }
+    50% {
+        filter: drop-shadow(0 0 25px rgba(139, 92, 246, 0.8)) drop-shadow(0 0 40px rgba(99, 102, 241, 0.6));
+    }
+}
+
+/* Smooth entrance animations */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Apply entrance animations */
+.hero-content {
+    animation: slideInLeft 1s ease 0.2s both;
+}
+
+.hero-image {
+    animation: slideInRight 1s ease 0.4s both;
+}
+
+.project-card {
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.project-card:hover {
+    animation: cardPulse 0.6s ease;
+}
+
+@keyframes cardPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Skill tags glow on hover */
+.skill-tags span {
+    position: relative;
+    overflow: hidden;
+}
+
+.skill-tags span::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.skill-tags span:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Button ripple effect */
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::after {
+    width: 400px;
+    height: 400px;
+}
+
+/* Navbar glow effect */
+.navbar {
+    position: relative;
+}
+
+.navbar::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--gradient-ethiopia);
+    animation: navGlow 3s ease-in-out infinite;
+}
+
+@keyframes navGlow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(251, 191, 36, 0.8), 0 0 50px rgba(239, 68, 68, 0.6);
+    }
+}
+
+/* Social links enhanced glow */
+.social-links a {
+    position: relative;
+}
+
+.social-links a::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    background: var(--gradient-ethiopia);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s;
+    filter: blur(10px);
+}
+
+.social-links a:hover::before {
+    opacity: 0.7;
+    animation: socialPulse 1s ease infinite;
+}
+
+@keyframes socialPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* Project icon enhanced animation */
+.project-icon {
+    position: relative;
+}
+
+.project-icon::before {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    border-radius: 20px;
+    background: inherit;
+    opacity: 0;
+    filter: blur(20px);
+    transition: opacity 0.3s;
+}
+
+.project-card:hover .project-icon::before {
+    opacity: 0.6;
+    animation: iconGlow 1.5s ease infinite;
+}
+
+@keyframes iconGlow {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+/* Footer enhanced styling */
+footer {
+    position: relative;
+}
+
+footer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--gradient-ethiopia);
+    animation: footerGlow 4s ease-in-out infinite;
+}
+
+@keyframes footerGlow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(251, 191, 36, 0.8), 0 0 60px rgba(239, 68, 68, 0.6);
+    }
+}
+
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+    background: rgba(139, 92, 246, 0.3);
+    color: white;
+}
+
+/* Loading animation for images */
+img {
+    animation: imageLoad 0.8s ease;
+}
+
+@keyframes imageLoad {
+    from {
+        opacity: 0;
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+/* Hover lift effect for all interactive elements */
+.btn, .project-card, .skill-category, .mini-project {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Ethiopian flag accent on scroll */
+.section-title::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -20px;
+    width: 60px;
+    height: 4px;
+    background: var(--gradient-ethiopia);
+    border-radius: 2px;
+    animation: titleAccent 2s ease-in-out infinite;
+}
+
+@keyframes titleAccent {
+    0%, 100% {
+        width: 60px;
+        box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+    }
+    50% {
+        width: 80px;
+        box-shadow: 0 0 20px rgba(251, 191, 36, 0.8);
     }
 }
