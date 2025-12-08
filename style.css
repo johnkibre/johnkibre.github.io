@@ -1308,7 +1308,17 @@ img {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    display: block;
+    display: inline-block;
+}
+
+.stat .plus {
+    font-size: 2rem;
+    font-weight: 700;
+    background: var(--gradient-ethiopia);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-left: 0.2rem;
 }
 
 .stat .label {
@@ -1589,4 +1599,92 @@ body.dark-mode .metric-circle::before {
         width: 95px;
         height: 95px;
     }
+}
+
+/* Enhanced Certificate Styling */
+.cert-issuer {
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+.cert-year {
+    color: var(--gray-color);
+    font-weight: 500;
+}
+
+.cert-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.8rem 0;
+}
+
+.skill-badge {
+    background: var(--gradient-3);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(79, 172, 254, 0.3);
+}
+
+.skill-badge:nth-child(even) {
+    background: var(--gradient-4);
+}
+
+.skill-badge:nth-child(3n) {
+    background: var(--gradient-2);
+}
+
+.cert-pdf-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--gradient-2);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: 0.8rem;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(240, 147, 251, 0.3);
+}
+
+.cert-pdf-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(240, 147, 251, 0.5);
+}
+
+.cert-pdf-link i {
+    font-size: 1.2rem;
+}
+
+.certificate-list li {
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.certificate-list li::before {
+    content: '🏆';
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.2rem;
+}
+
+.certificate-list li strong {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+body.dark-mode .certificate-list li strong {
+    color: #e0e0e0;
+}
+
+body.dark-mode .cert-issuer {
+    color: #4facfe;
 }

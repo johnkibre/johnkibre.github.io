@@ -375,6 +375,8 @@ document.body.appendChild(darkModeToggle);
 // Animated Counter for Stats
 function animateCounter(element) {
     const target = parseInt(element.getAttribute('data-target'));
+    if (isNaN(target)) return;
+    
     const duration = 2000;
     const increment = target / (duration / 16);
     let current = 0;
@@ -382,10 +384,11 @@ function animateCounter(element) {
     const timer = setInterval(() => {
         current += increment;
         if (current >= target) {
-            current = target;
+            element.textContent = target;
             clearInterval(timer);
+        } else {
+            element.textContent = Math.floor(current);
         }
-        element.textContent = Math.floor(current);
     }, 16);
 }
 
@@ -399,7 +402,7 @@ function animateMetrics() {
 
 // Intersection Observer for Animations
 const observerOptions = {
-    threshold: 0.2,
+    threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
 };
 
@@ -409,22 +412,30 @@ const observer = new IntersectionObserver((entries) => {
             entry.target.style.opacity = '1';
             entry.target.style.transform = 'translateY(0)';
             
-            // Animate counters
-            if (entry.target.classList.contains('number')) {
-                animateCounter(entry.target);
+            // Animate counters in hero stats
+            if (entry.target.classList.contains('hero-stats')) {
+                const numbers = entry.target.querySelectorAll('.number');
+                numbers.forEach(num => {
+                    if (num.textContent === '0') {
+                        animateCounter(num);
+                    }
+                });
             }
             
             // Animate metrics
             if (entry.target.classList.contains('metrics-grid')) {
                 animateMetrics();
             }
+            
+            // Mark as observed
+            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
 // Observe elements
-document.querySelectorAll('.project-card, .skill-category, .number, .metrics-grid, .stat').forEach(el => {
-    if (!el.classList.contains('number')) {
+document.querySelectorAll('.project-card, .skill-category, .hero-stats, .metrics-grid, .stat').forEach(el => {
+    if (!el.classList.contains('hero-stats')) {
         el.style.opacity = '0';
         el.style.transform = 'translateY(50px)';
         el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
