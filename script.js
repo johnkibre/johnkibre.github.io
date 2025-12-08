@@ -402,8 +402,8 @@ function animateMetrics() {
 
 // Intersection Observer for Animations
 const observerOptions = {
-    threshold: 0.2,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.1,
+    rootMargin: '0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
@@ -412,9 +412,12 @@ const observer = new IntersectionObserver((entries) => {
             entry.target.style.opacity = '1';
             entry.target.style.transform = 'translateY(0)';
             
-            // Animate counters
-            if (entry.target.classList.contains('number')) {
-                animateCounter(entry.target);
+            // Animate counters in hero stats
+            if (entry.target.classList.contains('hero-stats')) {
+                const numbers = entry.target.querySelectorAll('.number');
+                numbers.forEach(num => {
+                    animateCounter(num);
+                });
             }
             
             // Animate metrics
@@ -436,6 +439,13 @@ document.querySelectorAll('.project-card, .skill-category, .metrics-grid').forEa
 // Observe hero stats for counter animation
 const heroStats = document.querySelector('.hero-stats');
 if (heroStats) {
+    // Trigger animation immediately on page load
+    setTimeout(() => {
+        const numbers = heroStats.querySelectorAll('.number');
+        numbers.forEach(num => {
+            animateCounter(num);
+        });
+    }, 500);
     observer.observe(heroStats);
 }
 
