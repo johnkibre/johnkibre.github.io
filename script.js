@@ -437,16 +437,31 @@ document.querySelectorAll('.project-card, .skill-category, .metrics-grid').forEa
 });
 
 // Observe hero stats for counter animation
-const heroStats = document.querySelector('.hero-stats');
-if (heroStats) {
-    // Trigger animation immediately on page load
-    setTimeout(() => {
+function initHeroCounters() {
+    const heroStats = document.querySelector('.hero-stats');
+    if (heroStats) {
         const numbers = heroStats.querySelectorAll('.number');
+        console.log('Found', numbers.length, 'counters');
         numbers.forEach(num => {
+            console.log('Animating counter with target:', num.getAttribute('data-target'));
             animateCounter(num);
         });
-    }, 500);
-    observer.observe(heroStats);
+        observer.observe(heroStats);
+    } else {
+        console.log('Hero stats not found');
+    }
+}
+
+// Try multiple times to ensure counters animate
+setTimeout(initHeroCounters, 100);
+setTimeout(initHeroCounters, 500);
+setTimeout(initHeroCounters, 1000);
+
+// Also trigger on DOMContentLoaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeroCounters);
+} else {
+    initHeroCounters();
 }
 
 // Enhanced Button Ripple Effect
