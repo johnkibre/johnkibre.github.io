@@ -328,3 +328,216 @@ document.querySelectorAll('.project-card, .skill-category, .section-title').forE
     el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
     observer.observe(el);
 });
+
+
+// Loading Screen
+window.addEventListener('load', () => {
+    const loadingScreen = document.createElement('div');
+    loadingScreen.className = 'loading-screen';
+    loadingScreen.innerHTML = `
+        <div class="loader"></div>
+        <div class="loading-text">Loading Portfolio...</div>
+    `;
+    document.body.prepend(loadingScreen);
+    
+    setTimeout(() => {
+        loadingScreen.classList.add('hidden');
+        setTimeout(() => loadingScreen.remove(), 500);
+    }, 1500);
+});
+
+// Dark Mode Toggle
+const darkModeToggle = document.createElement('button');
+darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+darkModeToggle.className = 'dark-mode-toggle';
+darkModeToggle.setAttribute('aria-label', 'Toggle dark mode');
+
+// Check for saved dark mode preference
+if (localStorage.getItem('darkMode') === 'enabled') {
+    document.body.classList.add('dark-mode');
+    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+}
+
+darkModeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    
+    if (document.body.classList.contains('dark-mode')) {
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        localStorage.setItem('darkMode', 'enabled');
+    } else {
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        localStorage.setItem('darkMode', 'disabled');
+    }
+});
+
+document.body.appendChild(darkModeToggle);
+
+// Animated Counter for Stats
+function animateCounter(element) {
+    const target = parseInt(element.getAttribute('data-target'));
+    const duration = 2000;
+    const increment = target / (duration / 16);
+    let current = 0;
+    
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            current = target;
+            clearInterval(timer);
+        }
+        element.textContent = Math.floor(current);
+    }, 16);
+}
+
+// Animate Performance Metrics
+function animateMetrics() {
+    document.querySelectorAll('.metric-circle').forEach(circle => {
+        const percent = circle.getAttribute('data-percent');
+        circle.style.setProperty('--progress', percent);
+    });
+}
+
+// Intersection Observer for Animations
+const observerOptions = {
+    threshold: 0.2,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+            
+            // Animate counters
+            if (entry.target.classList.contains('number')) {
+                animateCounter(entry.target);
+            }
+            
+            // Animate metrics
+            if (entry.target.classList.contains('metrics-grid')) {
+                animateMetrics();
+            }
+        }
+    });
+}, observerOptions);
+
+// Observe elements
+document.querySelectorAll('.project-card, .skill-category, .number, .metrics-grid, .stat').forEach(el => {
+    if (!el.classList.contains('number')) {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(50px)';
+        el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    }
+    observer.observe(el);
+});
+
+// Enhanced Button Ripple Effect
+document.querySelectorAll('.btn').forEach(button => {
+    button.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            left: ${x}px;
+            top: ${y}px;
+            transform: scale(0);
+            animation: ripple-effect 0.6s ease-out;
+            pointer-events: none;
+        `;
+        
+        this.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+    });
+});
+
+// Add ripple animation
+const rippleStyle = document.createElement('style');
+rippleStyle.textContent = `
+    @keyframes ripple-effect {
+        to {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(rippleStyle);
+
+// Smooth Scroll with Offset
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            const offset = 80;
+            const targetPosition = targetElement.offsetTop - offset;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Analytics Tracking (Simple)
+const portfolioAnalytics = {
+    trackVisit() {
+        const visits = parseInt(localStorage.getItem('portfolioVisits') || '0');
+        localStorage.setItem('portfolioVisits', visits + 1);
+        console.log(`Portfolio visits: ${visits + 1}`);
+    },
+    
+    trackProjectClicks() {
+        document.querySelectorAll('.project-link, .project-card a').forEach(link => {
+            link.addEventListener('click', () => {
+                const projectName = link.closest('.project-card')?.querySelector('h3')?.textContent || 'Unknown';
+                console.log(`Project clicked: ${projectName}`);
+            });
+        });
+    }
+};
+
+// Initialize analytics
+portfolioAnalytics.trackVisit();
+portfolioAnalytics.trackProjectClicks();
+
+// Performance Optimization: Lazy Load Images
+if ('loading' in HTMLImageElement.prototype) {
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    images.forEach(img => {
+        img.src = img.dataset.src || img.src;
+    });
+} else {
+    // Fallback for browsers that don't support lazy loading
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
+    document.body.appendChild(script);
+}
+
+// Add keyboard navigation
+document.addEventListener('keydown', (e) => {
+    // Press 'D' to toggle dark mode
+    if (e.key === 'd' || e.key === 'D') {
+        darkModeToggle.click();
+    }
+    
+    // Press 'T' to scroll to top
+    if (e.key === 't' || e.key === 'T') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+});
+
+console.log('%c🇪🇹 Welcome to Yohannes Portfolio!', 'color: #10b981; font-size: 20px; font-weight: bold;');
+console.log('%cKeyboard shortcuts: D = Dark Mode | T = Top', 'color: #8b5cf6; font-size: 14px;');
