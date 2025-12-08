@@ -541,3 +541,82 @@ document.addEventListener('keydown', (e) => {
 
 console.log('%c🇪🇹 Welcome to Yohannes Portfolio!', 'color: #10b981; font-size: 20px; font-weight: bold;');
 console.log('%cKeyboard shortcuts: D = Dark Mode | T = Top', 'color: #8b5cf6; font-size: 14px;');
+
+
+// Visitor Counter with Animation
+function initVisitorCounter() {
+    const counterElement = document.createElement('div');
+    counterElement.className = 'visitor-counter';
+    counterElement.innerHTML = `
+        <i class="fas fa-eye"></i>
+        <span class="counter-value">0</span>
+        <span class="counter-label">Visitors</span>
+    `;
+    
+    // Add styles
+    const style = document.createElement('style');
+    style.textContent = `
+        .visitor-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(139, 92, 246, 0.9);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            z-index: 999;
+            box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
+            animation: slideInLeft 0.5s ease;
+        }
+        
+        .visitor-counter i {
+            font-size: 1.1rem;
+        }
+        
+        .counter-value {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .counter-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        
+        @media (max-width: 768px) {
+            .visitor-counter {
+                bottom: 150px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    `;
+    document.head.appendChild(style);
+    document.body.appendChild(counterElement);
+    
+    // Get and update visitor count
+    let visits = parseInt(localStorage.getItem('portfolioVisits') || '0');
+    visits++;
+    localStorage.setItem('portfolioVisits', visits);
+    
+    // Animate counter
+    const counterValue = counterElement.querySelector('.counter-value');
+    let current = 0;
+    const increment = visits / 50;
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= visits) {
+            current = visits;
+            clearInterval(timer);
+        }
+        counterValue.textContent = Math.floor(current);
+    }, 20);
+}
+
+// Initialize visitor counter
+initVisitorCounter();

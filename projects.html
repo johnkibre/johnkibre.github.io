@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects | Yohannes Kibrekidusan</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/carousel.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -63,9 +64,11 @@
                     </div>
                 </div>
                 <div class="project-image">
-                    <div class="image-placeholder">
-                        <i class="fas fa-globe-africa"></i>
-                        <p style="margin-top: 1rem; color: rgba(255,255,255,0.8);">Demo Video Coming Soon</p>
+                    <div class="project-carousel">
+                        <div class="carousel-images">
+                            <img src="assets/images/Ethiopia tourism.png" alt="Ethiopia Tourism - Homepage" class="carousel-image active" loading="lazy">
+                            <img src="assets/images/Ethiopia truism1.png" alt="Ethiopia Tourism - Destinations" class="carousel-image" loading="lazy">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -79,13 +82,13 @@
                         <span>Flask</span>
                         <span>Accessibility</span>
                     </div>
-                    <p>An assistive technology solution designed to help blind and visually impaired individuals access printed text through real-time optical character recognition and audio feedback.</p>
+                    <p><strong>Voice-controlled reading assistant</strong> - An assistive technology solution designed to help blind and visually impaired individuals access printed text through real-time optical character recognition and audio feedback.</p>
                     <ul class="project-features">
-                        <li><i class="fas fa-check"></i> Flask web application backend</li>
-                        <li><i class="fas fa-check"></i> Tesseract OCR integration</li>
-                        <li><i class="fas fa-check"></i> Google Translate API for multilingual support</li>
-                        <li><i class="fas fa-check"></i> Voice-guided user interface</li>
-                        <li><i class="fas fa-check"></i> Optimized for low-quality images</li>
+                        <li><i class="fas fa-check"></i> 100% voice-operated - No visual interface needed</li>
+                        <li><i class="fas fa-check"></i> Multilingual translation on-the-fly</li>
+                        <li><i class="fas fa-check"></i> Intelligent photo guidance system</li>
+                        <li><i class="fas fa-check"></i> Multi-sensory feedback (audio + vibration)</li>
+                        <li><i class="fas fa-check"></i> Empowers independence for visually impaired users</li>
                     </ul>
                     <div class="project-links">
                         <a href="https://github.com/johnkibre/ocr" target="_blank" class="btn primary">
@@ -94,8 +97,10 @@
                     </div>
                 </div>
                 <div class="project-image">
-                    <div class="image-placeholder">
-                        <i class="fas fa-eye"></i>
+                    <div class="project-carousel">
+                        <div class="carousel-images">
+                            <img src="assets/images/ocr1.png" alt="OCR App - Voice Interface" class="carousel-image active" loading="lazy">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -181,5 +186,6 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="js/carousel.js"></script>
 </body>
 </html>
