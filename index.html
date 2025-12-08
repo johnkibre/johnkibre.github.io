@@ -211,5 +211,28 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Direct counter animation - runs immediately
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const counters = document.querySelectorAll('.hero-stats .number');
+                counters.forEach(function(counter) {
+                    const target = parseInt(counter.getAttribute('data-target'));
+                    let count = 0;
+                    const increment = target / 100;
+                    
+                    const timer = setInterval(function() {
+                        count += increment;
+                        if (count >= target) {
+                            counter.textContent = target;
+                            clearInterval(timer);
+                        } else {
+                            counter.textContent = Math.floor(count);
+                        }
+                    }, 20);
+                });
+            }, 300);
+        });
+    </script>
 </body>
 </html>
