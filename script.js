@@ -402,7 +402,7 @@ function animateMetrics() {
 
 // Intersection Observer for Animations
 const observerOptions = {
-    threshold: 0.1,
+    threshold: 0.2,
     rootMargin: '0px 0px -50px 0px'
 };
 
@@ -412,36 +412,32 @@ const observer = new IntersectionObserver((entries) => {
             entry.target.style.opacity = '1';
             entry.target.style.transform = 'translateY(0)';
             
-            // Animate counters in hero stats
-            if (entry.target.classList.contains('hero-stats')) {
-                const numbers = entry.target.querySelectorAll('.number');
-                numbers.forEach(num => {
-                    if (num.textContent === '0') {
-                        animateCounter(num);
-                    }
-                });
+            // Animate counters
+            if (entry.target.classList.contains('number')) {
+                animateCounter(entry.target);
             }
             
             // Animate metrics
             if (entry.target.classList.contains('metrics-grid')) {
                 animateMetrics();
             }
-            
-            // Mark as observed
-            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
 // Observe elements
-document.querySelectorAll('.project-card, .skill-category, .hero-stats, .metrics-grid, .stat').forEach(el => {
-    if (!el.classList.contains('hero-stats')) {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(50px)';
-        el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-    }
+document.querySelectorAll('.project-card, .skill-category, .metrics-grid').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(50px)';
+    el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
     observer.observe(el);
 });
+
+// Observe hero stats for counter animation
+const heroStats = document.querySelector('.hero-stats');
+if (heroStats) {
+    observer.observe(heroStats);
+}
 
 // Enhanced Button Ripple Effect
 document.querySelectorAll('.btn').forEach(button => {
