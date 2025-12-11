@@ -652,3 +652,215 @@ function initVisitorCounter() {
 
 // Initialize visitor counter
 initVisitorCounter();
+
+// ===== EXCELLENCE ENHANCEMENTS =====
+
+// Module 1: Performance - Intersection Observer for Scroll Animations
+const observeElements = () => {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                // Stop observing once animated to improve performance
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Add fade-in-up class to elements that should animate
+    document.querySelectorAll('.project-card, .skill-category, .section-title, .metric').forEach(el => {
+        el.classList.add('fade-in-up');
+        observer.observe(el);
+    });
+};
+
+// Module 2: Enhanced Image Loading
+const optimizeImageLoading = () => {
+    // Native lazy loading fallback
+    if ('loading' in HTMLImageElement.prototype) {
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        images.forEach(img => {
+            img.addEventListener('load', () => {
+                img.classList.add('loaded');
+            });
+        });
+    } else {
+        // Fallback for browsers without native lazy loading
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.add('loaded');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+};
+
+// Module 3: Skeleton Screen Implementation
+const createSkeletonScreen = (container) => {
+    const skeleton = document.createElement('div');
+    skeleton.className = 'skeleton loading-placeholder';
+    skeleton.style.height = '200px';
+    skeleton.style.width = '100%';
+    skeleton.style.marginBottom = '1rem';
+    container.appendChild(skeleton);
+    
+    return skeleton;
+};
+
+// Module 4: Accessibility Enhancements
+const enhanceAccessibility = () => {
+    // Add skip link
+    const skipLink = document.createElement('a');
+    skipLink.href = '#main-content';
+    skipLink.className = 'skip-link';
+    skipLink.textContent = 'Skip to main content';
+    document.body.insertBefore(skipLink, document.body.firstChild);
+
+    // Add main content landmark
+    const heroSection = document.querySelector('.hero');
+    if (heroSection) {
+        heroSection.id = 'main-content';
+        heroSection.setAttribute('role', 'main');
+    }
+
+    // Enhance keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        // Escape key closes modals/dropdowns
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal, .dropdown').forEach(el => {
+                el.classList.remove('active');
+            });
+        }
+        
+        // Tab navigation enhancement
+        if (e.key === 'Tab') {
+            document.body.classList.add('keyboard-navigation');
+        }
+    });
+
+    // Remove keyboard navigation class on mouse use
+    document.addEventListener('mousedown', () => {
+        document.body.classList.remove('keyboard-navigation');
+    });
+};
+
+// Module 5: Performance Monitoring
+const performanceMonitoring = () => {
+    // Measure and log performance metrics
+    window.addEventListener('load', () => {
+        if ('performance' in window) {
+            const perfData = performance.getEntriesByType('navigation')[0];
+            console.log('🚀 Performance Metrics:', {
+                'DOM Content Loaded': Math.round(perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart),
+                'Load Complete': Math.round(perfData.loadEventEnd - perfData.loadEventStart),
+                'First Paint': Math.round(performance.getEntriesByType('paint')[0]?.startTime || 0)
+            });
+        }
+    });
+};
+
+// Module 6: Smooth Interactions
+const enhanceInteractions = () => {
+    // Add ripple effect to buttons
+    document.querySelectorAll('.btn, button').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.cssText = `
+                position: absolute;
+                width: ${size}px;
+                height: ${size}px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.6);
+                left: ${x}px;
+                top: ${y}px;
+                transform: scale(0);
+                animation: ripple-effect 0.6s ease-out;
+                pointer-events: none;
+            `;
+            
+            this.style.position = 'relative';
+            this.style.overflow = 'hidden';
+            this.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), 600);
+        });
+    });
+
+    // Enhanced hover effects for cards
+    document.querySelectorAll('.project-card, .skill-category').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+};
+
+// Module 7: Dark Mode Enhancement
+const enhanceDarkMode = () => {
+    const darkModeToggle = document.querySelector('.dark-mode-toggle');
+    if (darkModeToggle) {
+        // Smooth theme transition
+        const enableTransitions = () => {
+            document.body.style.transition = 'background 0.3s ease, color 0.3s ease';
+            setTimeout(() => {
+                document.body.style.transition = '';
+            }, 300);
+        };
+
+        darkModeToggle.addEventListener('click', enableTransitions);
+    }
+};
+
+// Initialize all excellence enhancements
+document.addEventListener('DOMContentLoaded', () => {
+    observeElements();
+    optimizeImageLoading();
+    enhanceAccessibility();
+    enhanceInteractions();
+    enhanceDarkMode();
+    performanceMonitoring();
+});
+
+// Page transition effect
+window.addEventListener('beforeunload', () => {
+    document.body.style.opacity = '0';
+    document.body.style.transform = 'translateY(-20px)';
+});
+
+// Preload critical resources
+const preloadCriticalResources = () => {
+    const criticalImages = [
+        'assets/images/profile.jpg'
+    ];
+    
+    criticalImages.forEach(src => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = src;
+        document.head.appendChild(link);
+    });
+};
+
+preloadCriticalResources();
