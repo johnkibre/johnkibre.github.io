@@ -150,6 +150,7 @@
                          height="300"
                          decoding="async"
                          fetchpriority="high">
+                    <i class="fas fa-user-circle"></i>
                 </div>
             </div>
         </div>
@@ -276,25 +277,33 @@
     <script src="script.js"></script>
     <script>
         // Direct counter animation - runs immediately
+        function startCounters() {
+            const counters = document.querySelectorAll('.hero-stats .number');
+            console.log('Starting counters for', counters.length, 'elements');
+            
+            counters.forEach(function(counter) {
+                const target = parseInt(counter.getAttribute('data-target'));
+                console.log('Counter target:', target);
+                let count = 0;
+                const increment = target / 50; // Faster animation
+                
+                const timer = setInterval(function() {
+                    count += increment;
+                    if (count >= target) {
+                        counter.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(count);
+                    }
+                }, 30);
+            });
+        }
+        
+        // Try multiple times to ensure it works
+        document.addEventListener('DOMContentLoaded', startCounters);
         window.addEventListener('load', function() {
-            setTimeout(function() {
-                const counters = document.querySelectorAll('.hero-stats .number');
-                counters.forEach(function(counter) {
-                    const target = parseInt(counter.getAttribute('data-target'));
-                    let count = 0;
-                    const increment = target / 100;
-                    
-                    const timer = setInterval(function() {
-                        count += increment;
-                        if (count >= target) {
-                            counter.textContent = target;
-                            clearInterval(timer);
-                        } else {
-                            counter.textContent = Math.floor(count);
-                        }
-                    }, 20);
-                });
-            }, 300);
+            setTimeout(startCounters, 100);
+            setTimeout(startCounters, 500);
         });
     </script>
 </body>

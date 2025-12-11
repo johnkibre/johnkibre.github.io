@@ -35,6 +35,18 @@ a, button, .btn, .project-card, .skill-tags span {
     cursor: pointer !important;
 }
 
+/* Enhanced 3D Effects */
+.project-card, .skill-category {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.project-card:hover, .skill-category:hover {
+    transform-origin: center center;
+}
+
 body {
     font-family: var(--font-secondary);
     line-height: 1.6;
@@ -370,6 +382,7 @@ body::before {
     animation: float 3s ease-in-out infinite, rotate3d 10s linear infinite;
     transform-style: preserve-3d;
     position: relative;
+    overflow: hidden;
 }
 
 .image-placeholder::before {
@@ -406,6 +419,11 @@ body::before {
     font-size: 8rem;
     color: rgba(255,255,255,0.9);
     text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+    position: absolute;
+    z-index: 1;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .image-placeholder img {
@@ -413,6 +431,11 @@ body::before {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+    display: block !important;
+    opacity: 1 !important;
+    transition: opacity 0.5s ease;
+    position: relative;
+    z-index: 2;
 }
 
 /* Skills Section */
@@ -459,12 +482,14 @@ body::before {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 249, 255, 0.9) 100%);
     padding: 2rem;
     border-radius: 20px;
-    transition: all 0.4s;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border: 2px solid rgba(99, 102, 241, 0.2);
     box-shadow: 0 10px 30px rgba(99, 102, 241, 0.1);
     transform-style: preserve-3d;
     position: relative;
     overflow: hidden;
+    will-change: transform;
+    backface-visibility: hidden;
 }
 
 .skill-category::before {
@@ -559,11 +584,13 @@ body::before {
     padding: 2rem;
     border-radius: 25px;
     box-shadow: 0 10px 40px rgba(99, 102, 241, 0.15);
-    transition: all 0.4s;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border: 2px solid rgba(139, 92, 246, 0.2);
     transform-style: preserve-3d;
     position: relative;
     overflow: hidden;
+    will-change: transform;
+    backface-visibility: hidden;
 }
 
 .project-card::before {
@@ -585,12 +612,7 @@ body::before {
     opacity: 0.2;
 }
 
-.project-card:hover {
-    transform: translateY(-15px) rotateX(5deg) scale(1.02);
-    box-shadow: 
-        0 25px 60px rgba(99, 102, 241, 0.3),
-        0 0 0 3px rgba(139, 92, 246, 0.3);
-}
+/* Removed conflicting hover transform - handled by JavaScript 3D effect */
 
 .project-icon {
     font-size: 2.5rem;
@@ -1072,9 +1094,7 @@ Video and Certificate Styling */
     transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-.project-card:hover {
-    animation: cardPulse 0.6s ease;
-}
+/* Removed conflicting cardPulse animation - handled by JavaScript 3D effect */
 
 @keyframes cardPulse {
     0%, 100% { transform: scale(1); }

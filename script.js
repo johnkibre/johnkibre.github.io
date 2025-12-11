@@ -123,26 +123,50 @@ window.addEventListener('load', () => {
     });
 });
 
-// 3D Card Tilt Effect
-document.querySelectorAll('.project-card, .skill-category').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 10;
-        const rotateY = (centerX - x) / 10;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px) scale(1.02)`;
-    });
+// 3D Card Tilt Effect - WORKING VERSION
+function init3DEffects() {
+    console.log('Initializing 3D effects...');
     
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+    document.querySelectorAll('.project-card, .skill-category').forEach((card, index) => {
+        console.log(`Setting up 3D effect for card ${index + 1}`);
+        
+        // Clear any existing styles that might conflict
+        card.style.transform = '';
+        card.style.transformStyle = 'preserve-3d';
+        card.style.transition = 'transform 0.2s ease-out';
+        
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+            
+            // Apply 3D transform
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px) scale(1.05)`;
+            card.style.boxShadow = '0 30px 70px rgba(99, 102, 241, 0.5), 0 0 0 4px rgba(139, 92, 246, 0.4)';
+            card.style.zIndex = '100';
+            
+            console.log(`3D effect applied: rotateX(${rotateX}deg) rotateY(${rotateY}deg)`);
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale(1)';
+            card.style.boxShadow = '';
+            card.style.zIndex = '';
+            
+            console.log('3D effect reset');
+        });
     });
-});
+}
+
+// Initialize 3D effects when DOM is ready
+document.addEventListener('DOMContentLoaded', init3DEffects);
+window.addEventListener('load', init3DEffects);
 
 // Parallax effect for hero section
 window.addEventListener('scroll', () => {
@@ -178,6 +202,89 @@ setInterval(() => {
 document.querySelectorAll('.skill-tags span').forEach((tag, index) => {
     tag.style.animation = `float 3s ease-in-out ${index * 0.1}s infinite`;
 });
+
+// Profile Image Loading Fix
+function fixProfileImage() {
+    console.log('Fixing profile image...');
+    
+    const profileImg = document.querySelector('.hero-image img');
+    const fallbackIcon = document.querySelector('.hero-image i');
+    
+    if (profileImg) {
+        console.log('Profile image element found');
+        
+        // Show fallback icon initially
+        if (fallbackIcon) {
+            fallbackIcon.style.display = 'block';
+            fallbackIcon.style.opacity = '1';
+        }
+        
+        // Check current image source
+        console.log('Image source:', profileImg.src);
+        console.log('Image complete:', profileImg.complete);
+        console.log('Image natural height:', profileImg.naturalHeight);
+        
+        // Try to load the image
+        profileImg.onload = function() {
+            console.log('Profile image loaded successfully!');
+            this.style.opacity = '1';
+            this.style.display = 'block';
+            if (fallbackIcon) {
+                fallbackIcon.style.display = 'none';
+            }
+        };
+        
+        profileImg.onerror = function() {
+            console.log('Profile image failed to load, showing fallback');
+            this.style.display = 'none';
+            if (fallbackIcon) {
+                fallbackIcon.style.display = 'block';
+                fallbackIcon.style.opacity = '1';
+            }
+        };
+        
+        // Test if image exists by trying to fetch it
+        fetch(profileImg.src)
+            .then(response => {
+                if (response.ok) {
+                    console.log('Image file exists and is accessible');
+                    // Force reload if needed
+                    if (profileImg.complete && profileImg.naturalHeight === 0) {
+                        console.log('Forcing image reload...');
+                        profileImg.src = profileImg.src + '?t=' + Date.now();
+                    } else if (profileImg.complete && profileImg.naturalHeight > 0) {
+                        console.log('Image already loaded');
+                        profileImg.style.opacity = '1';
+                        profileImg.style.display = 'block';
+                        if (fallbackIcon) {
+                            fallbackIcon.style.display = 'none';
+                        }
+                    }
+                } else {
+                    console.log('Image file not found, showing fallback');
+                    profileImg.style.display = 'none';
+                    if (fallbackIcon) {
+                        fallbackIcon.style.display = 'block';
+                        fallbackIcon.style.opacity = '1';
+                    }
+                }
+            })
+            .catch(error => {
+                console.log('Error checking image:', error);
+                console.log('Showing fallback icon');
+                if (fallbackIcon) {
+                    fallbackIcon.style.display = 'block';
+                    fallbackIcon.style.opacity = '1';
+                }
+            });
+    } else {
+        console.log('Profile image element not found!');
+    }
+}
+
+// Initialize profile image fix
+document.addEventListener('DOMContentLoaded', fixProfileImage);
+window.addEventListener('load', fixProfileImage);
 
 // Advanced Cursor Glow Effect
 const cursorGlow = document.createElement('div');
@@ -377,6 +484,7 @@ function animateCounter(element) {
     const target = parseInt(element.getAttribute('data-target'));
     if (isNaN(target)) return;
     
+    console.log('Animating counter to:', target);
     const duration = 2000;
     const increment = target / (duration / 16);
     let current = 0;
@@ -401,12 +509,12 @@ function animateMetrics() {
 }
 
 // Intersection Observer for Animations
-const observerOptions = {
+const mainObserverOptions = {
     threshold: 0.1,
     rootMargin: '0px'
 };
 
-const observer = new IntersectionObserver((entries) => {
+const mainObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
@@ -426,43 +534,52 @@ const observer = new IntersectionObserver((entries) => {
             }
         }
     });
-}, observerOptions);
+}, mainObserverOptions);
 
 // Observe elements
 document.querySelectorAll('.project-card, .skill-category, .metrics-grid').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(50px)';
     el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-    observer.observe(el);
+    mainObserver.observe(el);
 });
 
-// Observe hero stats for counter animation
+// Simple counter animation - no observer needed
 function initHeroCounters() {
     const heroStats = document.querySelector('.hero-stats');
     if (heroStats) {
         const numbers = heroStats.querySelectorAll('.number');
         console.log('Found', numbers.length, 'counters');
         numbers.forEach(num => {
-            console.log('Animating counter with target:', num.getAttribute('data-target'));
-            animateCounter(num);
+            const target = parseInt(num.getAttribute('data-target'));
+            console.log('Animating counter with target:', target);
+            
+            // Simple counter animation
+            let count = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                count += increment;
+                if (count >= target) {
+                    num.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    num.textContent = Math.floor(count);
+                }
+            }, 30);
         });
-        observer.observe(heroStats);
     } else {
         console.log('Hero stats not found');
     }
 }
 
-// Try multiple times to ensure counters animate
-setTimeout(initHeroCounters, 100);
-setTimeout(initHeroCounters, 500);
-setTimeout(initHeroCounters, 1000);
+// Initialize counters when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(initHeroCounters, 500);
+});
 
-// Also trigger on DOMContentLoaded
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initHeroCounters);
-} else {
-    initHeroCounters();
-}
+window.addEventListener('load', function() {
+    setTimeout(initHeroCounters, 100);
+});
 
 // Enhanced Button Ripple Effect
 document.querySelectorAll('.btn').forEach(button => {
@@ -653,29 +770,58 @@ function initVisitorCounter() {
 // Initialize visitor counter
 initVisitorCounter();
 
+// Ensure profile image loads properly
+function ensureProfileImageLoads() {
+    const profileImg = document.querySelector('.hero-image img');
+    if (profileImg) {
+        // Force reload if image fails to load
+        profileImg.addEventListener('error', function() {
+            console.log('Profile image failed to load, retrying...');
+            setTimeout(() => {
+                this.src = this.src + '?t=' + Date.now();
+            }, 1000);
+        });
+        
+        // Add loaded class when image loads successfully
+        profileImg.addEventListener('load', function() {
+            this.classList.add('loaded');
+            console.log('Profile image loaded successfully');
+        });
+        
+        // Check if image is already loaded (cached)
+        if (profileImg.complete && profileImg.naturalHeight !== 0) {
+            profileImg.classList.add('loaded');
+        }
+    }
+}
+
+// Initialize profile image loading
+document.addEventListener('DOMContentLoaded', ensureProfileImageLoads);
+window.addEventListener('load', ensureProfileImageLoads);
+
 // ===== EXCELLENCE ENHANCEMENTS =====
 
 // Module 1: Performance - Intersection Observer for Scroll Animations
 const observeElements = () => {
-    const observerOptions = {
+    const scrollObserverOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    const scrollObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
                 // Stop observing once animated to improve performance
-                observer.unobserve(entry.target);
+                scrollObserver.unobserve(entry.target);
             }
         });
-    }, observerOptions);
+    }, scrollObserverOptions);
 
     // Add fade-in-up class to elements that should animate
     document.querySelectorAll('.project-card, .skill-category, .section-title, .metric').forEach(el => {
         el.classList.add('fade-in-up');
-        observer.observe(el);
+        scrollObserver.observe(el);
     });
 };
 
